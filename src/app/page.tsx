@@ -53,6 +53,7 @@ export default function Home() {
             title="Pitch Management"
             description="Manage pitch allocations and schedules"
             icon="🏟️"
+            href="/pitches"
           />
           <DashboardCard
             title="Team Management"
