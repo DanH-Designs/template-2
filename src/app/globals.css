@@ -6,6 +6,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --club-blue: #002B88;
+  --club-yellow: #FFD700;
+  --google-blue: #4285f4;
+  --google-hover: #3367d6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,8 +30,33 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@layer base {
+  body {
+    @apply bg-gray-50;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[--club-blue] text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity;
+  }
+  
+  .btn-secondary {
+    @apply bg-[--club-yellow] text-[--club-blue] px-4 py-2 rounded-md hover:opacity-90 transition-opacity font-semibold;
+  }
+  
+  .google-sign-in-container {
+    @apply bg-white rounded-lg shadow-md p-8 w-full max-w-md mx-auto;
+  }
+  
+  .google-text {
+    @apply text-[#202124] font-normal;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+

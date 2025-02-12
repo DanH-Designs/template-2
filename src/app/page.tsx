@@ -1,48 +1,87 @@
-import Link from "next/link";
+'use client'
+
+import { useAuth } from '@/lib/hooks/useAuth'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Header from './components/Header'
+import DashboardCard from './components/DashboardCard'
+import GoogleSignInButton from './components/GoogleSignInButton'
+import Image from 'next/image'
 
 export default function Home() {
+  const { user, signInWithGoogle } = useAuth()
+  const router = useRouter()
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+        <div className="w-full max-w-md">
+          <div className="bg-white px-8 py-12 shadow-lg rounded-lg">
+            <div className="text-center mb-8">
+              <Image
+                src="/club-logo.png"
+                alt="EBFC Logo"
+                width={40}
+                height={40}
+                className="mx-auto mb-6"
+              />
+              <h1 className="text-2xl font-normal text-gray-900 mb-2">
+                Sign in to the
+              </h1>
+              <h2 className="text-xl font-medium text-gray-900">
+                EBFC Pitch Management Tool
+              </h2>
+            </div>
+            <div className="space-y-6">
+              <GoogleSignInButton onClick={signInWithGoogle} />
+              <p className="text-sm text-center text-gray-600">
+                This application is for authorized users only
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-8">
-      <div>
-        <h2 className="text-2xl font-semibold text-center border p-4 font-mono rounded-md">
-          Get started by choosing a template path from the /paths/ folder.
-        </h2>
-      </div>
-      <div>
-        <h1 className="text-6xl font-bold text-center">Make anything you imagine 🪄</h1>
-        <h2 className="text-2xl text-center font-light text-gray-500 pt-4">
-          This whole page will be replaced when you run your template path.
-        </h2>
-      </div>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="border rounded-lg p-6 hover:bg-gray-100 transition-colors">
-          <h3 className="text-xl font-semibold">AI Chat App</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            An intelligent conversational app powered by AI models, featuring real-time responses
-            and seamless integration with Next.js and various AI providers.
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <main className="container mx-auto p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <DashboardCard
+            title="Pitch Management"
+            description="Manage pitch allocations and schedules"
+            icon="🏟️"
+          />
+          <DashboardCard
+            title="Team Management"
+            description="Manage teams and squad information"
+            icon="⚽"
+            href="/teams"
+          />
+          <DashboardCard
+            title="Training Sessions"
+            description="Schedule and manage training sessions"
+            icon="🎯"
+          />
+          <DashboardCard
+            title="Fixtures"
+            description="View and manage upcoming fixtures"
+            icon="📅"
+          />
+          <DashboardCard
+            title="Reports"
+            description="Generate reports and analytics"
+            icon="📊"
+          />
+          <DashboardCard
+            title="Settings"
+            description="Configure application settings"
+            icon="⚙️"
+          />
         </div>
-        <div className="border rounded-lg p-6 hover:bg-gray-100 transition-colors">
-          <h3 className="text-xl font-semibold">AI Image Generation App</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            Create images from text prompts using AI, powered by the Replicate API and Next.js.
-          </p>
-        </div>
-        <div className="border rounded-lg p-6 hover:bg-gray-100 transition-colors">
-          <h3 className="text-xl font-semibold">Social Media App</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            A feature-rich social platform with user profiles, posts, and interactions using
-            Firebase and Next.js.
-          </p>
-        </div>
-        <div className="border rounded-lg p-6 hover:bg-gray-100 transition-colors">
-          <h3 className="text-xl font-semibold">Voice Notes App</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            A voice-based note-taking app with real-time transcription using Deepgram API, 
-            Firebase integration for storage, and a clean, simple interface built with Next.js.
-          </p>
-        </div>
-      </div>
-    </main>
-  );
+      </main>
+    </div>
+  )
 }
